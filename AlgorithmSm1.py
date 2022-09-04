@@ -1,20 +1,21 @@
 import numpy as np
 from queue import Queue
 
-
 def AlgorithmSm1(graph):
     M = []
     for i in range(graph.getLineAndRow()): #all the vertex at i
         Q = Queue()
         bestV = -1
         Q.put([i,0])# 0 = U; 1 = V
+        graph.print_edge_matrix()
+        print("  ")
         while(Q.empty() == False):
             w = Q.get()
             N = []
             if (w[1] == 0):
-                N = graph.getUnmatchedVertex(w[0], 0)  # N is in U
+                N = graph.getUnmatchedVertex(0)  # N is in U
             else:
-                N = graph.getMatchedVertex(w[0], 1)  # N is in V
+                N = graph.getMatchedVertex(1)  # N is in V
                 if bestV == -1 or graph.getDegree(w[0],w[1]) < graph.getDegree(bestV, 1):
                     bestV = w[0]
             for n in N:
@@ -32,8 +33,6 @@ def AlgorithmSm1(graph):
                 else:
                     print("Error: Invalid index value!")
                 Q.put(n)
-            graph.print_edge_matrix()
-
 
         v = bestV
         u = graph.getParent([v, 1])

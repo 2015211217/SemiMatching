@@ -23,27 +23,39 @@ class Graph():
     def getLineAndRow(self):
         return self.num_of_nodes
 
-    def getMatchedVertex(self, node1, indicator):
+    def getMatchedVertex(self, indicator):
         N = []
         M = []
         if indicator == 1:
-            M = [i for i, x in enumerate(self.edge_matrix[node1]) if x > 0]
+            for i in range(self.num_of_nodes):
+                for j in range(self.num_of_nodes):
+                    if self.edge_matrix[i][j] > 0:
+                        M.append(i)
+                        break
         elif indicator == 0:
             for i in range(self.num_of_nodes):
-                if self.edge_matrix[i][node1] > 0:
-                    M.append(i)
+                for j in range(self.num_of_nodes):
+                    if self.edge_matrix[j][i] > 0:
+                        M.append(i)
+                        break
         for i in M:
             N.append([i, np.abs(indicator - 1)])
         return N
 
-    def getUnmatchedVertex(self, node1, indicator):
+    def getUnmatchedVertex(self, indicator):
         N = []
         M = []
-        if indicator == 1:
-            M = [i for i, x in enumerate(self.edge_matrix[node1]) if x == 0]
-        elif indicator == 0:
+        if indicator == 0:
             for i in range(self.num_of_nodes):
-                if self.edge_matrix[i][node1] == 0:
+                for j in range(self.num_of_nodes):
+                    if self.edge_matrix[i][j] > 0:
+                        break
+                    if j == self.num_of_nodes - 1 and self.edge_matrix[i][j] == 0:
+                        M.append(i)
+                        break
+        elif indicator == 1:
+            for i in range(self.num_of_nodes):
+                if(np.count_nonzero == 0):
                     M.append(i)
         for i in M:
             N.append([i, np.abs(indicator - 1)])

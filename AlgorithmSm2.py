@@ -18,14 +18,14 @@ def InitialSemiMatching(graph):
     return M
 
 def DoDepthFirstSearch(graph, root, S):
-    MatchedNeighberV = graph.getMatchedVertex(root, 1)
+    MatchedNeighberV = graph.getMatchedVertex(1)
     for u in MatchedNeighberV:
         ##let parentU = root
         for k in range(0, graph.num_of_nodes):
             if graph.edge_matrix[u[0]][k] == 2:
                 graph.delete_edge(u[0], k)
         graph.add_edge(u[0], root, 1, 1)
-        UnMatchedNeightberV = graph.getUnmatchedVertex(u[0], 0)
+        UnMatchedNeightberV = graph.getUnmatchedVertex(0)
         for w in UnMatchedNeightberV:
             if S[w[0]]==-1 or graph.getDegree(w[0], 0) > graph.getDegree(root, 1):
                 continue
