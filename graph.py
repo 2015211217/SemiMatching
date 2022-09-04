@@ -22,16 +22,28 @@ class Graph():
 
     def getMatchedVertex(self, node1, indicator):
         N = []
-        M = [i for i, x in enumerate(self.edge_matrix[node1]) if x == 1]
+        M = []
+        if indicator == 0:
+            M = [i for i, x in enumerate(self.edge_matrix[node1]) if x == 1]
+        elif indicator == 1:
+            for i in range(self.num_of_nodes):
+                if self.edge_matrix[i][node1] == 1:
+                    M.append(i)
         for i in M:
-            N.append([i, indicator])
+            N.append([i, np.abs(indicator - 1)])
         return N
 
     def getUnmatchedVertex(self, node1, indicator):
         N = []
-        M = [i for i, x in enumerate(self.edge_matrix[node1]) if x == 0]
+        M = []
+        if indicator == 0:
+            M = [i for i, x in enumerate(self.edge_matrix[node1]) if x == 0]
+        elif indicator == 1:
+            for i in range(self.num_of_nodes):
+                if self.edge_matrix[i][node1] == 0:
+                    M.append(i)
         for i in M:
-            N.append([i, indicator])
+            N.append([i, np.abs(indicator - 1)])
         return N
 
     def getDegree(self, node, indicator):
@@ -46,8 +58,7 @@ class Graph():
                     count += 1
             return count
         else:
-            print("Error: invalid indicatior!")
-
+            return -1
 
     def getParent(self, nodeWithIndi):
         if nodeWithIndi[1] == 1: #find a prent for V

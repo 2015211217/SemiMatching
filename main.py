@@ -40,5 +40,7 @@ StartTime = datetime.datetime.now()
 AlgorithmSm2(graph)
 EndTime = datetime.datetime.now()
 Ag2Time = EndTime-StartTime
+print(Ag2Time)
+
 
 #### Output
