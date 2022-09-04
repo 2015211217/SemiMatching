@@ -48,9 +48,9 @@ class Graph():
         if indicator == 0:
             for i in range(self.num_of_nodes):
                 for j in range(self.num_of_nodes):
-                    if self.edge_matrix[i][j] > 0:
+                    if self.edge_matrix[j][i] > 0:
                         break
-                    if j == self.num_of_nodes - 1 and self.edge_matrix[i][j] == 0:
+                    if j == self.num_of_nodes - 1 and self.edge_matrix[j][i] == 0:
                         M.append(i)
                         break
         elif indicator == 1:
@@ -76,13 +76,13 @@ class Graph():
             return -1
 
     def getParent(self, nodeWithIndi):
-        if nodeWithIndi[1] == 1: #find a prent for V
+        if nodeWithIndi[1] == 1: #find a parent for V
             for i in range(0, self.num_of_nodes):
-                if self.edge_matrix[self.num_of_nodes - 1 - i][nodeWithIndi[0]] == 1:
-                    return self.num_of_nodes - i
+                if self.edge_matrix[i][nodeWithIndi[0]] == 1:
+                    return i
         elif nodeWithIndi[1] == 0:
             for i in range(0, self.num_of_nodes):
-                if self.edge_matrix[nodeWithIndi[0]][self.num_of_nodes - 1 - i] == 2:
-                    return self.num_of_nodes - i
-
+                if self.edge_matrix[nodeWithIndi[0]][i] == 2:
+                    return i
+        self.print_edge_matrix()
         print("Error: no parent found!")

@@ -1,19 +1,20 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from graph import Graph
 import datetime
 import random
+
+import numpy as np
+
 from AlgorithmSm1 import AlgorithmSm1
 from AlgorithmSm2 import AlgorithmSm2
+from graph import Graph
 
 #### Initialization
-FewG = 32
+FewG = 10
 ManyG = 256
 CurrentG = FewG
-NodeGroups = 10
+NodeGroups = 3
 #### Build the graph
 graph = Graph(CurrentG * NodeGroups)
-y = np.count_nonzero(np.random.binomial(1,1/2,10))
+y = np.count_nonzero(np.random.binomial(1,1/2,2))
 for i in range(NodeGroups * CurrentG):
     if(i == 0):
         NumberList = random.sample(range(0, CurrentG), y)

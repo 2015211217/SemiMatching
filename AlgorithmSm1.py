@@ -7,8 +7,6 @@ def AlgorithmSm1(graph):
         Q = Queue()
         bestV = -1
         Q.put([i,0])# 0 = U; 1 = V
-        graph.print_edge_matrix()
-        print("  ")
         while(Q.empty() == False):
             w = Q.get()
             N = []
@@ -37,8 +35,8 @@ def AlgorithmSm1(graph):
         v = bestV
         u = graph.getParent([v, 1])
         M.append([u, v])
-        graph.print_edge_matrix()
         while u != i:
+            print(u)
             v = graph.getParent([u, 0])
             graph.delete_edge(u, v)
             u = graph.getParent([v, 1])
