@@ -11,12 +11,11 @@ def AlgorithmSm1(graph):
         while(Q.empty() == False):
             w = Q.get()
             N = []
-
             if (w[1] == 0):
-                N = graph.getMatchedVertex(w[0], w[1])  # N is in U
+                N = graph.getUnmatchedVertex(w[0], 0)  # N is in U
             else:
-                N = graph.getUnmatchedVertex(w[0], w[1])  # N is in V
-                if (bestV == -1 or graph.getDegree(w[0],1) < graph.getDegree(bestV, 1)):
+                N = graph.getMatchedVertex(w[0], 1)  # N is in V
+                if bestV == -1 or graph.getDegree(w[0],w[1]) < graph.getDegree(bestV, 1):
                     bestV = w[0]
             for n in N:
                 if n[1] == 0:
@@ -33,11 +32,15 @@ def AlgorithmSm1(graph):
                 else:
                     print("Error: Invalid index value!")
                 Q.put(n)
+            graph.print_edge_matrix()
+
+
         v = bestV
         u = graph.getParent([v, 1])
         M.append([u, v])
+        graph.print_edge_matrix()
         while u != i:
             v = graph.getParent([u, 0])
             graph.delete_edge(u, v)
-            u = graph.getParent([v, 0])
+            u = graph.getParent([v, 1])
             M.append([u, v])

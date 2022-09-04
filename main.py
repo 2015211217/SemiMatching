@@ -7,10 +7,10 @@ from AlgorithmSm1 import AlgorithmSm1
 from AlgorithmSm2 import AlgorithmSm2
 
 #### Initialization
-FewG = 32
+FewG = 5
 ManyG = 256
 CurrentG = FewG
-NodeGroups = 3
+NodeGroups = 2
 #### Build the graph
 graph = Graph(CurrentG * NodeGroups)
 y = np.count_nonzero(np.random.binomial(1,1/2,10))
