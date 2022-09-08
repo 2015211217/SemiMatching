@@ -14,7 +14,7 @@ def AlgorithmSm1(graph):
                 N = graph.getUnmatchedVertex(0)  # N is in U
             else:
                 N = graph.getMatchedVertex(1)  # N is in V
-                if bestV == -1 or graph.getDegree(w[0],w[1]) < graph.getDegree(bestV, 1):
+                if bestV == -1 or graph.getDegreeM(w[0],w[1]) < graph.getDegreeM(bestV, 1):
                     bestV = w[0]
             for n in N:
                 if n[1] == 0:

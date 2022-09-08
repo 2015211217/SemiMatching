@@ -63,7 +63,7 @@ class Graph():
                 N.append([i, np.abs(indicator - 1)])
         return N
 
-    def getDegree(self, node, indicator):
+    def getDegreeM(self, node, indicator):
         if node < 0 or node >= self.num_of_nodes:
             return -1
         elif indicator == 0:# 0 is line, 1 is row
@@ -80,6 +80,16 @@ class Graph():
             return count
         else:
             return -1
+
+    def getDegree(self, node, indicator):
+        if indicator == 0:
+            count = 0
+            for i in range(self.num_of_nodes):
+                if self.num_of_nodes[i][node] > 0:
+                    count += 1
+            return count
+        elif indicator == 1:
+            return np.nonzero(self.num_of_nodes[node])
 
     def getParent(self, nodeWithIndi):
         if nodeWithIndi[1] == 1: #find a parent for V
