@@ -23,19 +23,19 @@ class Graph():
     def getLineAndRow(self):
         return self.num_of_nodes
 
-    def getMatchedVertex(self, indicator):
+    def getMatchedVertex(self, indicator): ## modification needed
         N = []
         M = []
         if indicator == 1:
             for i in range(self.num_of_nodes):
                 for j in range(self.num_of_nodes):
-                    if self.edge_matrix[i][j] > 0:
+                    if self.edge_matrix[i][j] == 2:
                         M.append(i)
                         break
         elif indicator == 0:
             for i in range(self.num_of_nodes):
                 for j in range(self.num_of_nodes):
-                    if self.edge_matrix[j][i] > 0:
+                    if self.edge_matrix[j][i] == 2:
                         M.append(i)
                         break
         for i in M:
@@ -45,31 +45,37 @@ class Graph():
     def getUnmatchedVertex(self, indicator):
         N = []
         M = []
-        if indicator == 0:
+        if indicator == 1:
             for i in range(self.num_of_nodes):
                 for j in range(self.num_of_nodes):
-                    if self.edge_matrix[j][i] > 0:
-                        break
-                    if j == self.num_of_nodes - 1 and self.edge_matrix[j][i] == 0:
+                    if self.edge_matrix[i][j] == 2:
                         M.append(i)
                         break
-        elif indicator == 1:
+        elif indicator == 0:
             for i in range(self.num_of_nodes):
-                if(np.count_nonzero == 0):
-                    M.append(i)
-        for i in M:
-            N.append([i, np.abs(indicator - 1)])
+                for j in range(self.num_of_nodes):
+                    if self.edge_matrix[j][i] == 2:
+                        M.append(i)
+                        break
+
+        for i in range(self.num_of_nodes):
+            if i not in M:
+                N.append([i, np.abs(indicator - 1)])
         return N
 
     def getDegree(self, node, indicator):
         if node < 0 or node >= self.num_of_nodes:
             return -1
         elif indicator == 0:# 0 is line, 1 is row
-            return np.count_nonzero(self.edge_matrix[node])
+            count = 0
+            for i in range(self.num_of_nodes):
+                if self.edge_matrix[node][i] == 2:
+                    count += 1
+            return count
         elif indicator == 1:
             count = 0
             for i in range(self.num_of_nodes):
-                if self.edge_matrix[i][node] == 1:
+                if self.edge_matrix[i][node] == 2:
                     count += 1
             return count
         else:

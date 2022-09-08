@@ -19,15 +19,15 @@ for i in range(NodeGroups * CurrentG):
     if(i == 0):
         NumberList = random.sample(range(0, CurrentG), y)
         for j in NumberList:
-            graph.add_edge(i, j, 1, 0)
+            graph.add_edge(i, j, 1, 1)
     elif(i == NodeGroups - 1):
         NumberList = random.sample(range((i//CurrentG)*CurrentG, CurrentG*NodeGroups), y)
         for j in NumberList:
-            graph.add_edge(i, j, 1, 0)
+            graph.add_edge(i, j, 1, 1)
     else:
         NumberList = random.sample(range(CurrentG*((i//CurrentG)-1), CurrentG*((i//CurrentG)+1)), y)
         for j in NumberList:
-            graph.add_edge(i, j, 1, 0)
+            graph.add_edge(i, j, 1, 1)
 #graph.print_edge_matrix()
 
 #### The algorithms
