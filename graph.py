@@ -102,3 +102,36 @@ class Graph():
                     return i
         self.print_edge_matrix()
         print("Error: no parent found!")
+
+    def getNeighbors(self, node, indicator, pathNodes): #for U only
+        N = []
+        if indicator == 0: #all the vertex that have the edge with node
+            for j in range(self.num_of_nodes):
+                if self.edge_matrix[node][j] == 1 and [node, j] not in pathNodes:
+                    N.append([j, 1])
+        else:
+            print("Error: invalid indicator")
+            exit(1)
+        return N
+
+    def getUnmatchedEdges(self, node, indicator, pathNodes): #for V only
+        N = []
+        if indicator == 1:
+            for i in range(self.num_of_nodes):
+                if self.edge_matrix[i][node] == 1 and [i, node] not in pathNodes:
+                    N.append([i, 0])
+        else:
+            print("Error: invalid indicator")
+            exit(1)
+        return N
+
+    def isMatched(self, node, indicator):
+        if indicator == 0:
+            for j in range(self.num_of_nodes):
+                if self.edge_matrix[node][j] == 2:
+                    return True
+        if indicator == 1:
+            for i in range(self.num_of_nodes):
+                if self.edge_matrix[i][node] == 2:
+                    return True
+        return False
