@@ -20,8 +20,6 @@ class Graph():
         for i in range(self.num_of_nodes) :
             print(self.edge_matrix[i])
 
-    def getLineAndRow(self):
-        return self.num_of_nodes
 
     def getMatchedVertex(self, indicator): ## modification needed
         N = []
@@ -85,11 +83,11 @@ class Graph():
         if indicator == 0:
             count = 0
             for i in range(self.num_of_nodes):
-                if self.num_of_nodes[i][node] > 0:
+                if self.edge_matrix[i][node] > 0:
                     count += 1
             return count
         elif indicator == 1:
-            return np.nonzero(self.num_of_nodes[node])
+            return np.size(np.nonzero(self.edge_matrix[node]))
 
     def getParent(self, nodeWithIndi):
         if nodeWithIndi[1] == 1: #find a parent for V
@@ -100,12 +98,12 @@ class Graph():
             for i in range(0, self.num_of_nodes):
                 if self.edge_matrix[nodeWithIndi[0]][i] == 2:
                     return i
-        self.print_edge_matrix()
-        print("Error: no parent found!")
+        return -1
+        # print("Error: no parent found!")
 
     def getNeighbors(self, node, indicator, pathNodes): #for U only
         N = []
-        if indicator == 0: #all the vertex that have the edge with node
+        if indicator == 0: #all the vertex that have the edge with node and not matched
             for j in range(self.num_of_nodes):
                 if self.edge_matrix[node][j] == 1 and [node, j] not in pathNodes:
                     N.append([j, 1])
@@ -114,7 +112,7 @@ class Graph():
             exit(1)
         return N
 
-    def getUnmatchedEdges(self, node, indicator, pathNodes): #for V only
+    def getUnmatchedEdges(self, node, indicator, pathNodes): #for V only ?????
         N = []
         if indicator == 1:
             for i in range(self.num_of_nodes):
@@ -135,3 +133,23 @@ class Graph():
                 if self.edge_matrix[i][node] == 2:
                     return True
         return False
+
+    def getUnmatchedNeighborsOfU(self, nodeU, P):
+        N = []
+        for j in range(self.num_of_nodes):
+            if self.edge_matrix[nodeU][j] == 1:
+                for i in range(self.num_of_nodes):
+                    if self.edge_matrix[i][j] == 2:
+                        break
+                if i == self.num_of_nodes and j not in P:
+                   N.append(j)
+        return N
+
+    def getMatchedNeighborsOfV(self, nodeV, P):
+        N = []
+        for i in range(self.num_of_nodes):
+            if self.edge_matrix[i][nodeV] > 0:
+                for j in range(self.num_of_nodes):
+                    if self.edge_matrix[i][j] == 2 and i not in P:
+                        N.append(i)
+        return N

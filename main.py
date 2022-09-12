@@ -6,12 +6,13 @@ import numpy as np
 from AlgorithmSm1 import AlgorithmSm1
 from AlgorithmSm2 import AlgorithmSm2
 from graph import Graph
+from Hungarian import HungarianMaxMatching
 
 #### Initialization
 FewG = 32
 ManyG = 256
 CurrentG = FewG
-NodeGroups = 3
+NodeGroups = 10
 #### Build the graph
 graph = Graph(CurrentG * NodeGroups)
 y = np.count_nonzero(np.random.binomial(1,1/2,10))
@@ -32,7 +33,7 @@ for i in range(NodeGroups * CurrentG):
 
 #### The algorithms
 StartTime = datetime.datetime.now()
-AlgorithmSm1(graph)
+HungarianMaxMatching(graph)
 EndTime = datetime.datetime.now()
 Ag1Time = EndTime-StartTime
 print(Ag1Time)
@@ -42,6 +43,14 @@ AlgorithmSm2(graph)
 EndTime = datetime.datetime.now()
 Ag2Time = EndTime-StartTime
 print(Ag2Time)
+
+
+StartTime = datetime.datetime.now()
+AlgorithmSm1(graph)
+EndTime = datetime.datetime.now()
+Ag1Time = EndTime-StartTime
+print(Ag1Time)
+
 
 
 #### Output
